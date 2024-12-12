@@ -10,9 +10,14 @@
         <li><strong>Email:</strong> {{ $user->email }}</li>
     </ul>
     <x-alert/>
-    <form action="{{ route('users.destroy', $user->id) }}" method="post">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Deletar</button>
-    </form>
+    {{-- @can('owner', $user)
+        pode Deletar
+    @endcan --}}
+    @can('is-admin')
+        <form action="{{ route('users.destroy', $user->id) }}" method="post">
+            @csrf
+            @method('DELETE')
+            <button type="submit">Deletar</button>
+        </form>
+    @endcan
 @endsection
